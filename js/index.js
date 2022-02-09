@@ -376,7 +376,7 @@ function downloadPost(post) {
     }
 
     /* Continue if item is from an external service and user doesn't want to download from those */
-    if (!includeNonReddit && (isImgurUrl(url) || isGfycatUrl(url))) {
+    if (!includeNonReddit && (isImgurUrl(url) || isGfycatUrl(url)|| isRedgifUrl(url))) {
         return;
     }
 
