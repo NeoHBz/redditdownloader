@@ -684,7 +684,7 @@ function isDirectVideoUrl(url) {
 
 function isDirectGifUrl(url) {
     url = url.toLowerCase();
-    return url.indexOf(".gif") !== -1;// || url.indexOf(".gifv") !== -1;
+    return url.indexOf(".gif") !== -1; /* || url.indexOf(".gifv") !== -1;*/
 }
 
 function downloadUrl(url, post, postIdx) {
