@@ -420,6 +420,10 @@ function isGfycatUrl(url) {
     return url.startsWith("http://gfycat.com/") || url.startsWith("https://gfycat.com/");
 }
 
+function isRedgifUrl(url) {
+    return url.startsWith("http://redgifs.com/") || url.startsWith("https://redgifs.com/");
+}
+
 function isRedditVideoUrl(url) {
     return url.startsWith("http://v.redd.it/") || url.startsWith("https://v.redd.it/");
 }
@@ -629,7 +633,7 @@ function isDirectVideoUrl(url) {
 
 function isDirectGifUrl(url) {
     url = url.toLowerCase();
-    return url.indexOf(".gif") !== -1 || url.indexOf(".gifv") !== -1;
+    return url.indexOf(".gif") !== -1;// || url.indexOf(".gifv") !== -1;
 }
 
 function downloadUrl(url, post, postIdx) {
