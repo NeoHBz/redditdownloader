@@ -615,7 +615,7 @@ function downloadGfycat(url, post, postIdx) {
 function downloadRedgifs(url, post, postIdx) {
     toDownloadCount++;
 
-    const gredgifstName = getPartAfterSlash(url);
+    const redgifstName = getPartAfterSlash(url);
 
     $.ajax({
         url: "https://api.redgifs.com/v1/gfycats/" + redgifsName,
@@ -627,7 +627,7 @@ function downloadRedgifs(url, post, postIdx) {
         success: function(result, status, xhr) {
             const gfyItem = result.gfyItem;
             if (!gfyItem) {
-                console.log("Error: gfyItem missing in Gfycat API response for '" + url + "'");
+                console.log("Error: gfyItem missing in Redgifs API response for '" + url + "'");
                 toDownloadCount--;
                 return;
             }
@@ -649,7 +649,7 @@ function downloadRedgifs(url, post, postIdx) {
         error: function(error) {
             if (error.status !== 404) {
                 doneDownloading();
-                alert("Accessing the Gfycat API failed!\nPlease contact the developer.\nResponse code: " 
+                alert("Accessing the Redgifs API failed!\nPlease contact the developer.\nResponse code: " 
                     + error.status + "\nResponse: " + error.responseText);
             }
             toDownloadCount--;
