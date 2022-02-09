@@ -440,7 +440,11 @@ function isImgurSingleImageAlbumUrl(url) {
 
 function downloadDirectFile(url, post, postIdx) {
     toDownloadCount++;
-    downloadUrl(url, post, postIdx);
+    if(url.indexOf(".gifv") !== -1){
+     url= url.substr(0,-5)+'.mp4';
+     console.log(url);
+    }
+      downloadUrl(url, post, postIdx);
 }
 
 function downloadRedditVideo(url, post, postIdx) {
