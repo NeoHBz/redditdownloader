@@ -406,6 +406,8 @@ function downloadPost(post) {
         downloadSingleImageImgurAlbum(url, post, postIdx);
     } else if (isGfycatUrl(url)) {
         downloadGfycat(url, post, postIdx);
+    } else if (isRedgifUrl(url)) {        
+        downloadRedgifs(url, post, postIdx);
     } else if (includeOthers && isDirectUrl(url)) {
         /* Handle downloading direct files with non-image/video extensions */
         downloadDirectFile(url, post, postIdx);
@@ -572,6 +574,51 @@ function downloadGfycat(url, post, postIdx) {
 
     $.ajax({
         url: "https://api.gfycat.com/v1/gfycats/" + gfycatName,
+        type: "GET",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        post: post, // pass to success function
+        postIdx: postIdx, // pass to success function
+        success: function(result, status, xhr) {
+            const gfyItem = result.gfyItem;
+            if (!gfyItem) {
+                console.log("Error: gfyItem missing in Gfycat API response for '" + url + "'");
+                toDownloadCount--;
+                return;
+            }
+            if (!includeNsfw && gfyItem.nsfw) {
+                toDownloadCount--;
+                return;
+            }
+            let url;
+            if (includeVideos) {
+                url = gfyItem.mp4Url;
+            } else if (includeGifs) {
+                url = gfyItem.gifUrl;
+            } else {
+                toDownloadCount--;
+                return;
+            }
+            downloadUrl(url, this.post, this.postIdx);
+        },
+        error: function(error) {
+            if (error.status !== 404) {
+                doneDownloading();
+                alert("Accessing the Gfycat API failed!\nPlease contact the developer.\nResponse code: " 
+                    + error.status + "\nResponse: " + error.responseText);
+            }
+            toDownloadCount--;
+        }
+    });
+}
+
+function downloadRedgifs(url, post, postIdx) {
+    toDownloadCount++;
+
+    const gredgifstName = getPartAfterSlash(url);
+
+    $.ajax({
+        url: "https://api.redgifs.com/v1/gfycats/" + redgifsName,
         type: "GET",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
