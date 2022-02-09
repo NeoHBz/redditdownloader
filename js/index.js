@@ -632,7 +632,7 @@ function isDirectVideoUrl(url) {
     url = url.toLowerCase();
     return url.indexOf(".mp4") !== -1 || url.indexOf(".mkv") !== -1
         || url.indexOf(".mov") !== -1 || url.indexOf(".avi") !== -1
-        || url.indexOf(".webm") !== -1;
+        || url.indexOf(".webm") !== -1 || url.indexOf(".gifv") !== -1;
 }
 
 function isDirectGifUrl(url) {
